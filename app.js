@@ -1,7 +1,10 @@
 const express = require('express');
 const http = express();
 const network = require('./network');
-const port = 3000;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 4000;
+}
 
 http.use(express.static('public'))
 
@@ -22,7 +25,6 @@ http.get("/api/results", (req, res) => {
         res.send(JSON.stringify(r));
     });
 });
-
 
 http.listen(port, () => {
     console.log("Server started");
